@@ -22,6 +22,7 @@ import torch.optim as optim
 import torch.backends.cudnn as cudnn
 
 from torchvision import transforms
+from torchvision.datasets import MNIST
 
 from config import cfg, update_config
 from utils import set_path, create_logger, save_checkpoint
@@ -145,8 +146,7 @@ def main():
         shuffle=True,
         drop_last=True,
     )
-    test_dataset = DeepSpeakerDataset(
-        Path(cfg.DATASET.DATA_DIR), cfg.DATASET.SUB_DIR, cfg.DATASET.PARTIAL_N_FRAMES, 'test', is_test=True)
+    test_dataset = MNIST('mydata', transform=totensor, train=False, download=True)
     test_loader = torch.utils.data.DataLoader(
         dataset=test_dataset,
         batch_size=1,

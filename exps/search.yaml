@@ -7,7 +7,7 @@ CUDNN:
   ENABLED: true
 
 DATASET:
-  DATA_DIR: '/path/to/VoxCeleb1'
+  DATA_DIR: 'mydata/MNIST'
   SUB_DIR: 'merged'
   NUM_WORKERS: 0
   PARTIAL_N_FRAMES: 300
@@ -33,4 +33,4 @@ MODEL:
   NAME: 'model_search'
   NUM_CLASSES: 1251
   LAYERS: 8
-  INIT_CHANNELS: 16
+  INIT_CHANNELS: 1
