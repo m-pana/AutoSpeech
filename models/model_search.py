@@ -126,7 +126,8 @@ class Network(nn.Module):
         return model_new
 
     def forward(self, input, discrete=False):
-        input = input.unsqueeze(1)
+        # I hope this does not break anything, I don't know why it's here
+        # input = input.unsqueeze(1)
         s0 = s1 = self.stem(input)
         for i, cell in enumerate(self.cells):
             if cell.reduction:
@@ -217,4 +218,3 @@ class Network(nn.Module):
             reduce=gene_reduce, reduce_concat=concat
         )
         return genotype
-
