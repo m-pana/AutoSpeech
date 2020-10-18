@@ -35,6 +35,7 @@ from spaces import primitives_1, primitives_2, primitives_3
 from models.model_search import Network
 
 totensor = transforms.Compose([
+    transforms.Resize((257,300)),
     transforms.ToTensor()
 ])
 
