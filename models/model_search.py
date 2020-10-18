@@ -127,7 +127,9 @@ class Network(nn.Module):
 
     def forward(self, input, discrete=False):
         # I hope this does not break anything, I don't know why it's here
-        # input = input.unsqueeze(1)
+        # Second take
+        if len(input.shape) < 4:
+            input = input.unsqueeze(1)
         s0 = s1 = self.stem(input)
         for i, cell in enumerate(self.cells):
             if cell.reduction:
