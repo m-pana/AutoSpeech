@@ -21,6 +21,8 @@ import torch
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
 
+from torchvision import transforms
+
 from config import cfg, update_config
 from utils import set_path, create_logger, save_checkpoint
 from data_objects.DeepSpeakerDataset import DeepSpeakerDataset
@@ -30,6 +32,10 @@ from loss import CrossEntropyLoss
 from torch.utils.data import DataLoader
 from spaces import primitives_1, primitives_2, primitives_3
 from models.model_search import Network
+
+totensor = transforms.Compose([
+    transforms.ToTensor()
+])
 
 
 def parse_args():
@@ -121,10 +127,8 @@ def main():
         args.path_helper['ckpt_path'])
 
     # dataloader
-    train_dataset = DeepSpeakerDataset(
-        Path(cfg.DATASET.DATA_DIR), cfg.DATASET.SUB_DIR, cfg.DATASET.PARTIAL_N_FRAMES, 'train')
-    val_dataset = DeepSpeakerDataset(
-        Path(cfg.DATASET.DATA_DIR), cfg.DATASET.SUB_DIR, cfg.DATASET.PARTIAL_N_FRAMES, 'val')
+    train_dataset = MNIST('mydata', transform=totensor, train=True, download=True)
+    val_dataset = MNIST('mydata', transform=totensor, train=False, download=True)
     train_loader = torch.utils.data.DataLoader(
         dataset=train_dataset,
         batch_size=cfg.TRAIN.BATCH_SIZE,
