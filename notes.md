@@ -1,0 +1,2 @@
+- the loss for the architecture step is computed in model_search.Network._loss
+- entropy is computed in functions.train (line 52)
