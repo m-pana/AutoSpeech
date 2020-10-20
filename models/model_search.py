@@ -191,26 +191,40 @@ class Network(nn.Module):
             PRIMITIVES = self.PRIMITIVES['primitives_normal' if normal else 'primitives_reduct']
 
             gene = []
-            n = 2
+            n = 2 # number of ops entering each block here
             start = 0
             for i in range(self._steps):
+                # _steps = n.sub-blocks?
                 end = start + n
-                W = weights[start:end].copy()
+                W = weights[start:end].copy() # W is alphas matrix (14, 8) shape
                 try:
+                    # this thing ahead is unreadable.
+                    # sort indices of entering edges (they go up to i+2 since each block has two more entering edges than its index.
+                    # e.g. intermediate block 0 has 2 inputs (even tho intermediate block
+                    # 0 would be x2...)
+                    # sort them according to the maximum weight, unless there is a none.
+                    # Skip the nones.
                     edges = sorted(range(i + 2), key=lambda x: -max(
-                        W[x][k] for k in range(len(W[x])) if k != PRIMITIVES[x].index('none')))[:2]
+                        W[x][k] for k in range(len(W[x])) if k != PRIMITIVES[x].index('none')))[:2] # i assume this 2 is the hardcoded number of entering edges
+                        # why they did not put n here is beyond me
                 except ValueError:  # This error happens when the 'none' op is not present in the ops
-                    edges = sorted(range(i + 2), key=lambda x: -max(W[x][k] for k in range(len(W[x]))))[:2]
-                for j in edges:
-                    k_best = None
+                    edges = sorted(range(i + 2), key=lambda x: -max(W[x][k] for k in range(len(W[x]))))[:2] #same as above, without the none piece
+                for j in edges: # edge has 2 elements: two indices, i think
+                    k_best = None # index of best operation (between two)
                     for k in range(len(W[j])):
                         if 'none' in PRIMITIVES[j]:
-                            if k != PRIMITIVES[j].index('none'):
+                            if k != PRIMITIVES[j].index('none'): # again, they never select none
+                            # in conclusion, 'none' cannot be selected as operation. ever.
+                            # or so it seems
                                 if k_best is None or W[j][k] > W[j][k_best]:
                                     k_best = k
                         else:
                             if k_best is None or W[j][k] > W[j][k_best]:
                                 k_best = k
+                    # Select the best operation for the edge j and add it to the genotype
+                    # This means that operations are put IN ORDER in a Genotype
+                    # Two ops for first block are 1st and 2nd in the list, for second block they are 3rd and 4th, and so on...
+                    # the second argument of the tuple (j) is which edge the operation belongs to
                     gene.append((PRIMITIVES[start+j][k_best], j))
                 start = end
                 n += 1
