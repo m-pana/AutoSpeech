@@ -166,7 +166,7 @@ class Network(nn.Module):
 
         alph_nor = nn.Parameter(1e-3 * torch.randn(k, num_ops))
         alph_res = nn.Parameter(1e-3 * torch.randn(k, num_ops))
-        print(f"Initializing alphas normal of shape {alph_norm.shape}")
+        print(f"Initializing alphas normal of shape {alph_nor.shape}")
         print(f"Initializing alphas res of shape {alph_res.shape}")
         self.alphas_normal = nn.Parameter(1e-3 * torch.randn(k, num_ops))
         self.alphas_reduce = nn.Parameter(1e-3 * torch.randn(k, num_ops))
