@@ -79,6 +79,7 @@ def main():
     criterion = CrossEntropyLoss(cfg.MODEL.NUM_CLASSES).cuda()
 
     # model and optimizer
+    print(f"Definining network with {cfg.MODEL.LAYERS} layers...")
     model = Network(cfg.MODEL.INIT_CHANNELS, cfg.MODEL.NUM_CLASSES, cfg.MODEL.LAYERS, criterion, primitives_2,
                     drop_path_prob=cfg.TRAIN.DROPPATH_PROB)
     model = model.cuda()
@@ -149,7 +150,7 @@ def main():
     test_dataset = MNIST('mydata', transform=totensor, train=False, download=True)
     test_loader = torch.utils.data.DataLoader(
         dataset=test_dataset,
-        batch_size=1,
+        batch_size=256,
         num_workers=cfg.DATASET.NUM_WORKERS,
         pin_memory=True,
         shuffle=True,
