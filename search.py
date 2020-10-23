@@ -165,8 +165,8 @@ def main():
         'train_global_steps': begin_epoch * len(train_loader),
         'valid_global_steps': begin_epoch // cfg.VAL_FREQ,
     }
-print('search.py: Writer dict')
-print(writer_dict)
+    print('search.py: Writer dict')
+    print(writer_dict)
 
     # training loop
     architect = Architect(model, cfg)
