@@ -183,7 +183,7 @@ class Network(nn.Module):
         prob = F.softmax(alpha, dim=dim)
         log_prob = F.log_softmax(alpha, dim=dim)
         entropy = - (log_prob * prob).sum(-1, keepdim=False)
-        print(f"Computed architecture entropy of {entropy}")
+        # print(f"Computed architecture entropy of {entropy}")
         return entropy
 
     def genotype(self):

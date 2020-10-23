@@ -24,6 +24,9 @@ def train(cfg, model, optimizer, train_loader, val_loader, criterion, architect,
         prefix="Epoch: [{}]".format(epoch), logger=logger)
     writer = writer_dict['writer']
 
+    print(f'functions.py: train loader has {train_loader}')
+    print(f'functions.py: val loader has {val_loader}')
+
     # switch to train mode
     model.train()
 
@@ -225,4 +228,3 @@ def validate_identification(cfg, model, test_loader, criterion):
         logger.info('Test Acc@1: {:.8f} Acc@5: {:.8f}'.format(top1.avg, top5.avg))
 
     return top1.avg
-

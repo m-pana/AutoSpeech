@@ -139,6 +139,7 @@ def main():
         shuffle=True,
         drop_last=True,
     )
+    print(f'search.py: Train loader of {len(train_loader)} batches')
     val_loader = torch.utils.data.DataLoader(
         dataset=val_dataset,
         batch_size=cfg.TRAIN.BATCH_SIZE,
@@ -147,6 +148,7 @@ def main():
         shuffle=True,
         drop_last=True,
     )
+    print(f'search.py: Train loader of {len(val_loader)} batches')
     test_dataset = MNIST('mydata', transform=totensor, train=False, download=True)
     test_loader = torch.utils.data.DataLoader(
         dataset=test_dataset,
@@ -163,6 +165,8 @@ def main():
         'train_global_steps': begin_epoch * len(train_loader),
         'valid_global_steps': begin_epoch // cfg.VAL_FREQ,
     }
+print('search.py: Writer dict')
+    print(writer_dict)
 
     # training loop
     architect = Architect(model, cfg)
