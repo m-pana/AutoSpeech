@@ -45,6 +45,7 @@ class Cell(nn.Module):
       h2 = states[self._indices[2 * i + 1]]
       op1 = self._ops[2 * i]
       op2 = self._ops[2 * i + 1]
+      # I assume these two are the incoming operations of the complete cell
       h1 = op1(h1)
       h2 = op2(h2)
       if self.training and drop_prob > 0.:
@@ -52,6 +53,7 @@ class Cell(nn.Module):
           h1 = drop_path(h1, drop_prob)
         if not isinstance(op2, Identity):
           h2 = drop_path(h2, drop_prob)
+    # compute sum and add it to the states
       s = h1 + h2
       states += [s]
     return torch.cat([states[i] for i in self._concat], dim=1)
@@ -116,7 +118,3 @@ class Network(nn.Module):
   def forward_classifier(self, v):
     y = self.classifier(v)
     return y
-
-
-
-
