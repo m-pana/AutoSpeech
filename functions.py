@@ -24,8 +24,8 @@ def train(cfg, model, optimizer, train_loader, val_loader, criterion, architect,
         prefix="Epoch: [{}]".format(epoch), logger=logger)
     writer = writer_dict['writer']
 
-    print(f'functions.py: train loader has {train_loader}')
-    print(f'functions.py: val loader has {val_loader}')
+    print(f'functions.py: train loader has {len(train_loader)}')
+    print(f'functions.py: val loader has {len(val_loader)}')
 
     # switch to train mode
     model.train()
