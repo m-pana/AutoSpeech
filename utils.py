@@ -57,8 +57,10 @@ class AverageMeter(object):
         self.avg = self.sum / self.count
 
     def __str__(self):
-        fmtstr = '{name} {val' + self.fmt + '} ({avg' + self.fmt + '})'
-        return fmtstr.format(**self.__dict__)
+        to_print_val = self.val.item() if torch.is_tensor(self.val) else self.val
+        to_print_avg = self.avg.item() if torch.is_tensor(self.avg) else self.avg
+        fmtstr = f'{self.name} {round(to_print_val,4)} ({round(to_print_avg,4)})'
+        return fmtstr
 
 
 class ProgressMeter(object):
