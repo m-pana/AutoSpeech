@@ -21,8 +21,7 @@ import torch
 import torch.optim as optim
 import torch.backends.cudnn as cudnn
 
-from torchvision import transforms
-from torchvision.datasets import MNIST
+from toy_asv_dataset import asv_toys
 
 from config import cfg, update_config
 from utils import set_path, create_logger, save_checkpoint
@@ -128,9 +127,13 @@ def main():
         os.path.join(this_dir, 'models', cfg.MODEL.NAME + '.py'),
         args.path_helper['ckpt_path'])
 
-    # dataloader
-    train_dataset = MNIST('mydata', transform=totensor, train=True, download=True)
-    val_dataset = MNIST('mydata', transform=totensor, train=False, download=True)
+    # Datasets and dataloaders
+
+    asv_train, asv_dev, asv_eval = asv_toys()
+
+
+    train_dataset = asv_train #MNIST('mydata', transform=totensor, train=True, download=True)
+    val_dataset = asv_dev #MNIST('mydata', transform=totensor, train=False, download=True)
     train_loader = torch.utils.data.DataLoader(
         dataset=train_dataset,
         batch_size=cfg.TRAIN.BATCH_SIZE,
@@ -151,10 +154,10 @@ def main():
     )
     print(f'search.py: Val loader of {len(val_loader)} batches')
     print(f'Tot val set {len(val_dataset)}')
-    test_dataset = MNIST('mydata', transform=totensor, train=False, download=True)
+    test_dataset = asv_eval #MNIST('mydata', transform=totensor, train=False, download=True)
     test_loader = torch.utils.data.DataLoader(
         dataset=test_dataset,
-        batch_size=256,
+        batch_size=cfg.TRAIN.BATCH_SIZE,
         num_workers=cfg.DATASET.NUM_WORKERS,
         pin_memory=True,
         shuffle=True,
