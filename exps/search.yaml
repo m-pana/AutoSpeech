@@ -1,5 +1,5 @@
 PRINT_FREQ: 2
-VAL_FREQ: 5
+VAL_FREQ: 3
 
 CUDNN:
   BENCHMARK: true
@@ -27,7 +27,7 @@ TRAIN:
   DROPPATH_PROB: 0.2
 
   BEGIN_EPOCH: 0
-  END_EPOCH: 3
+  END_EPOCH: 7
 
 MODEL:
   NAME: 'model_search'

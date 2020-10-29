@@ -59,7 +59,7 @@ def train(cfg, model, optimizer, train_loader, val_loader, criterion, architect,
         output = model(input)
 
         # measure accuracy and record loss
-        acc1, acc5 = accuracy(output, target, topk=(1,))
+        acc1 = accuracy(output, target, topk=(1,))
         top1.update(acc1[0], input.size(0))
         top5.update(acc5[0], input.size(0))
         loss = criterion(output, target)
