@@ -211,9 +211,9 @@ def validate_identification(cfg, model, test_loader, criterion):
             output = model(input)
             output = torch.mean(output, dim=0, keepdim=True)
             output = model.forward_classifier(output)
-            acc1, acc5 = accuracy(output, target, topk=(1, 5))
+            acc1 = accuracy(output, target, topk=(1,))
             top1.update(acc1[0], input.size(0))
-            top5.update(acc5[0], input.size(0))
+            # top5.update(acc5[0], input.size(0))
             loss = criterion(output, target)
 
             losses.update(loss.item(), 1)
