@@ -33,11 +33,6 @@ from torch.utils.data import DataLoader
 from spaces import primitives_1, primitives_2, primitives_3
 from models.model_search import Network
 
-totensor = transforms.Compose([
-    transforms.ToTensor()
-])
-
-
 def parse_args():
     parser = argparse.ArgumentParser(description='Train energy network')
     # general
