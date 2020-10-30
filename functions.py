@@ -204,7 +204,7 @@ def validate_identification(cfg, model, test_loader, criterion):
     with torch.no_grad():
         end = time.time()
         for i, (input, target) in enumerate(test_loader):
-            input = input.cuda(non_blocking=True).squeeze(0)
+            input = input.cuda(non_blocking=True)#.squeeze(0)
             target = target.cuda(non_blocking=True)
 
             # compute output
