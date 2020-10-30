@@ -209,8 +209,9 @@ def validate_identification(cfg, model, test_loader, criterion):
 
             # compute output
             output = model(input)
-            output = torch.mean(output, dim=0, keepdim=True)
-            output = model.forward_classifier(output)
+            # MODIFYING EVALUATION STAGE: WHY AVG THIS THING?
+            # output = torch.mean(output, dim=0, keepdim=True)
+            # output = model.forward_classifier(output)
 
             print("DEBUG 1")
             print(f'Target shape: {target.shape}. Target:')

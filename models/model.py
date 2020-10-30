@@ -107,9 +107,11 @@ class Network(nn.Module):
       s0, s1 = s1, cell(s0, s1, self.drop_path_prob)
     v = self.global_pooling(s1)
     v = v.view(v.size(0), -1)
-    if not self.training:
-      return v
 
+    # Returing the feature mapping is something done in recognition/verification, not in anti-spoofing (i guess...)
+    # if not self.training:
+    #  return v
+    print("DEBUG: forwarding through the classifier...")
     y = self.classifier(v)
 
     return y
