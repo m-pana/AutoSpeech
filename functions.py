@@ -211,6 +211,13 @@ def validate_identification(cfg, model, test_loader, criterion):
             output = model(input)
             output = torch.mean(output, dim=0, keepdim=True)
             output = model.forward_classifier(output)
+
+            print("DEBUG 1")
+            print(f'Target shape: {target.shape}. Target:')
+            print(target)
+            print(f'output of forward shape: {output.shape}. output:')
+            print(output)
+
             acc1 = accuracy(output, target, topk=(1,))
             top1.update(acc1[0], input.size(0))
             # top5.update(acc5[0], input.size(0))
