@@ -124,7 +124,8 @@ def main():
 
     # Datasets and dataloaders
 
-    asv_train, asv_dev, asv_eval = asv_toys()
+    # The toy dataset is downloaded with 10 items for each partition. Remove the sample_size parameters to use the full toy dataset
+    asv_train, asv_dev, asv_eval = asv_toys(sample_size=10)
 
 
     train_dataset = asv_train #MNIST('mydata', transform=totensor, train=True, download=True)
