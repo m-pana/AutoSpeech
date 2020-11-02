@@ -18,7 +18,7 @@ class MixedOp(nn.Module):
 
     def forward(self, x, weights):
         """
-        This is a forward function.
+        This is a forward function. --> (duh!)
         :param x: Feature map
         :param weights: A tensor of weight controlling the path flow
         :return: A weighted sum of several path
@@ -126,8 +126,7 @@ class Network(nn.Module):
         return model_new
 
     def forward(self, input, discrete=False):
-        # I hope this does not break anything, I don't know why it's here
-        # Second take
+        # This if was modified. I think the reason is because in AutoSpeech individual items have 2 dimensions (time, freq), while in my ToyASV2019 items have three dimensions (channels, time, freq), but channels is always 1.
         if len(input.shape) < 4:
             input = input.unsqueeze(1)
         s0 = s1 = self.stem(input)
@@ -145,8 +144,10 @@ class Network(nn.Module):
             s0, s1 = s1, cell(s0, s1, weights, self.drop_path_prob)
         v = self.global_pooling(s1)
         v = v.view(v.size(0), -1)
-        if not self.training:
-            return v
+
+        # This is not needed, in anti-spoofing we always forward through the whole network
+        # if not self.training:
+        #    return v
 
         y = self.classifier(v)
 

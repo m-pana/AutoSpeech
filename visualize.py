@@ -1,5 +1,5 @@
 import sys
-import genotypes
+# import genotypes <- that was present in the original DARTS implementation. Not needed here
 from graphviz import Digraph
 
 
@@ -47,9 +47,8 @@ if __name__ == '__main__':
   try:
     genotype = eval('genotypes.{}'.format(genotype_name))
   except AttributeError:
-    print("{} is not specified in genotypes.py".format(genotype_name)) 
+    print("{} is not specified in genotypes.py".format(genotype_name))
     sys.exit(1)
 
   plot(genotype.normal, "normal")
   plot(genotype.reduce, "reduction")
-

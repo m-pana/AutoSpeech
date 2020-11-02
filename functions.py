@@ -233,6 +233,8 @@ def validate_identification(cfg, model, test_loader, criterion):
             if i % 2000 == 0:
                 progress.print(i)
 
-        logger.info('Test Acc@1: {:.8f} Acc@5: {:.8f}'.format(top1.avg, top5.avg))
+        # This gives formatting problems. Just printing the top1 object is fine
+        # logger.info('Test Acc@1: {:.8f} Acc@5: {:.8f}'.format(top1.avg, top5.avg))
+        print(top1)
 
     return top1.avg
