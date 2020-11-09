@@ -118,7 +118,7 @@ def train_from_scratch(cfg, model, optimizer, train_loader, criterion, epoch, wr
         target = target.cuda(non_blocking=True)
 
         # compute output
-        output = model(input)
+        output = model(input) # <-- simple forward
 
         # measure accuracy and record loss
         loss = criterion(output, target)
